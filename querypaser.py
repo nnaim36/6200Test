@@ -37,13 +37,6 @@ if exists("./results_file.txt") == True:
 file2 = open("results_file.txt","w")
 
 
-# data_into_list = data2.replace('\n', ' ').split(".")
-# print(data)
-# print(len(data))
-# print(data_into_list)
-# print(len(data2))
-# stoptxt.close()
-
 def queryrun(q):
 	es = Elasticsearch("http://localhost:9200")
 	result = es.search(index="ap89_data13test",
@@ -62,28 +55,52 @@ def queryrun(q):
 	                   })
 
 
-	# result2 = es.search(index="ap89_data2",body={"size": 1000, "query": { "match": { "text": " text to search" } }})
-
-	# print(result['hits']['hits'])
 	d=result['hits']['hits']
-	# print(d)
-	# d2 = [{'_index' : 'ap89_data2', '_type': '_doc', '_id': ' ap890130-0164 \n', '_score': 16.779451, '_source': d}]
-	# for i in d2:
-	# 	print(i['_id'])
 	result3 = [(item["_id"], item["_score"],item["_source"]) for item in d]
 	# file2.close()
 	print(result3)
 	return result3
 
+def queryrun2(q):
+	es = Elasticsearch("http://localhost:9200")
+	result = es.search(index="ap89_data13test",
+	                   body={
+	                       "query": {
+	                           "function_score": {
+	                           		# "fields" :['_id'],
+	                           		# 'scroll': 1000,
+	                            	"query": {
+	                                   "match": {
+	                                       "text": q
+	                                   }
+	                               }
+	                           }
+	                       }
+	                   })
+
+
+	d=result['hits']['hits']
+	result3 = [(item["_id"], item["_score"],item["_source"]) for item in d]
+	# file2.close()
+	print(result3)
+	return result3
 
 def writeout(file,qnum,iddoc,rank,score):
-	# path= './'+name+'.txt'
-	# if exists(path) == True:
-	# 	os.remove("./results_file.txt")
-	# 	print("we are doing it")
-	# file2 = open(path,"w")
-	# # count=1
 	file.write(qnum+" Q0 "+iddoc +" "+str(rank)+" "+str(score)+" Exp")
+
+def getstats(text,query):
+	testlist = text.split(" ")
+	querylist = query.split(" ")
+
+	size = len(testlist)
+	matchnum =0
+	for i in querylist:
+		matchnum =0
+		for j in testlist:
+			if i == j:
+				matchnum = matchnum +1
+
+		freqlist.append(matchnum)
 	
 
 def cleanquery(q,data3):
@@ -154,9 +171,6 @@ for i in querylist:
 		query2 = query.split(".   ")
 	qn = query2[0]
 	qs = query2[1]
-	# query = query.replace("document will",'')
-	# query = query.replace("document must",'')
-	# query = query.replace()
 	for j in data3:
 		word = " "+j + " "
 		qs = qs.replace(word,' ')
@@ -180,6 +194,16 @@ for i in querylist:
 				print(k[2]["text"])
 
 
+	if count2 ==0:
+		q2_result = queryrun2(str(qs))
+		if q2_result is not None:
+			for k in q2_result:
+				idq = k[0].replace("\n",'')
+				rating = k[1]
+				# writeout(file2,qn,idq,count,rating)
+				print(idq)
+				print(k[2]["text"])
+
 	count2 = count2 +1
 	count = count +1
 	# file2.write("hello\n")
@@ -189,88 +213,7 @@ for i in querylist:
 # test = query.replace("91.    ", "")
 # print(test)
 es = Elasticsearch("http://localhost:9200")
-# q = es.search(
-# 	index = "ap89_data",
-# 	body= {
-# 	"size" : 1000,
-# 	"query" : {
-# 		"function_score": {
-# 			"content" : test
-# 		}
-# 	}
-# 	}
-# 	)
 
-# def queryrun(q):
-# 	result = es.search(index="ap89_data13test",
-# 	                   body={
-# 	                       "query": {
-# 	                           "function_score": {
-# 	                           		# "fields" :['_id'],
-# 	                           		# 'scroll': 1000,
-# 	                            	"query": {
-# 	                                   "match": {
-# 	                                       "text": q
-# 	                                   }
-# 	                               }
-# 	                           }
-# 	                       },"size": 1000
-# 	                   })
-
-
-# 	# result2 = es.search(index="ap89_data2",body={"size": 1000, "query": { "match": { "text": " text to search" } }})
-
-# 	# print(result['hits']['hits'])
-# 	d=result['hits']['hits']
-# 	# d2 = [{'_index' : 'ap89_data2', '_type': '_doc', '_id': ' ap890130-0164 \n', '_score': 16.779451, '_source': d}]
-# 	# for i in d2:
-# 	# 	print(i['_id'])
-# 	result3 = [(item["_id"], item["_score"]) for item in d]
-# 	print(result3)
-
-
-# body2 = {
-#   "query": {
-#     "function_score": {
-#       "query": {
-#         "match": { "content": "u.s. weapons system" }
-#       },
-#       "script_score": {
-#         "script": {
-#           "source": "Math.log(2 + doc['my-int'].value)"
-#         }
-#       }
-#     }
-#   }
-# }
-# print(test[1])
-
-# result = es.search(index="ap89_data2",body=body2)
 print("*****************************************")
-# ans = es.termvectors(index="ap89_data2",
-#                         id="ap890101-0014",
-#                         fields = "content")
-
-# print(ans)
-# ans = es.termvectors(index="ap89_data13test",
-#                         id="ap890101-0009",
-#                         body={
-#                             # "fields": ["text","system"],
-#                             "fields": ["text"],
-#                             "term_statistics": True,
-#                             "field_statistics": True
-#                             # "doc" : {"plot":"system"}
-#                         })["term_vectors"]
-
-# ans2 = es.termvectors(index="ap89_data2",
-#                         id='ap890130-0164',
-#                         fields=["content"]
-#                         )
-
-
-# field_term_vectors = ans2['system']['content']
-# print(field_term_vectors)
-# ["doc"]:{"plot":"system"}
-# print(ans)
 
 file2.close()
