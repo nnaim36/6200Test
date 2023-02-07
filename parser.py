@@ -27,8 +27,11 @@ data2 = stoptxt.read()
 # print(data_into_list)
 print(len(data2))
 stoptxt.close()
-
+filecount = 1
+readingcount=1
 for i in os.listdir(path):	
+	print("reading file: %d",readingcount)
+	readingcount = readingcount+1
 	# print(i)
 	data = []
 	file = "ap89_collection\\"+i
@@ -45,6 +48,7 @@ for i in os.listdir(path):
 			if '<docno>' in line2:
 				docid = line2.replace("<docno>",'')
 				docid = docid.replace("</docno>",'')
+				docid = docid.replace(" ",'')
 				docidlist.append(docid)
 				# print(docid)
 			if count ==1:
@@ -76,16 +80,26 @@ for i in os.listdir(path):
 					anew = ps.stem(w)
 					newsent = newsent +" "+anew
 
+				newsent = newsent.replace("u.s.",'usa')
 				newsent = newsent.replace(",",'')
 				newsent = newsent.replace("!",'')
-				newsent = newsent.replace(".",'')
+				newsent = newsent.replace(". ",' ')
 				newsent = newsent.replace("?",'')
 				newsent = newsent.replace("{",'')
 				newsent = newsent.replace("}",'')
 				newsent = newsent.replace("_",'')
 				newsent = newsent.replace(";",'')
 				newsent = newsent.replace(":",'')
+				newsent= newsent.replace('"', '')
+				newsent = newsent.replace("'s",'')
+				newsent = newsent.replace("'re",'')
+				newsent = newsent.replace("'m",'')
+				newsent = newsent.replace("'ll",'')
+				newsent = newsent.replace("(",'')
+				newsent = newsent.replace(")",'')
+				newsent = newsent.replace("'",'')
 				newsent = newsent.replace("  ",' ')
+
 				textlist.append(newsent)
 				# print(newsent)
 				textcheck = False
@@ -136,6 +150,7 @@ df = pd.DataFrame(
 
 # client.indices.create(index="movies", mappings=mappings)
 # client.indices.create(index='ap_files', mappings = mappings)
+# client.indices.create(index='ap89_data3', mappings = mappings)
 
 #****************************************************************
 body = {
@@ -163,28 +178,52 @@ body = {
     },
     "mappings": {
         "properties": {
-            "content": {
+            "text": {
                 "type": "text",
                 "fielddata": True,
                 "analyzer": "stopped",
+                # "analyzer": "standard",
                 "index_options": "positions"
+                # "store": True,
+				# "term_vector": "with_positions_offsets_payloads"
             }
         }
     }
 }
 
-es.indices.create(index="ap89_data", body=body)
+
+# body = {
+#     "mappings": {
+#         "properties": {
+#             "text": {
+#                 "type": "text",
+#                 # "fielddata": True,
+#                 # "analyzer": "stopped",
+#                 "analyzer": "standard",
+#                 # "index_options": "positions",
+#                 "store": True,
+# 				"term_vector": "with_positions_offsets_payloads"
+#             }
+#         }
+#     }
+# }
+
+
+es.indices.create(index="ap89_data5", body=body)
 # es.indices.create(index="apfiletest1", body=body)
 
 for i, row in df.iterrows():
+	print("loading file:%d",filecount)
 	doc = {
-		"content": row["text"]
+		"text": row["text"]
 	}
+	filecount =filecount+1
 
 # print(df)
-
+	print(str(df['DOC_ID'].iloc[i]))
 	# print(df['DOC_ID'].iloc[i])
 	# es.index(index ="apfiletest1", id = df['DOC_ID'].iloc[i],document =doc)
-	es.index(index ="ap89_data", id = str(df['DOC_ID'].iloc[i]),document =doc)
+	# es.index(index ="ap89_data4", id = str(df['DOC_ID'].iloc[i]),document =doc)
+	es.index(index ="ap89_data5", id = str(df['DOC_ID'].iloc[i]),document =doc)
 
 #**********************************************************************
