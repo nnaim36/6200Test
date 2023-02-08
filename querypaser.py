@@ -91,8 +91,9 @@ def writeout(file,qnum,iddoc,rank,score):
 def getstats(text,query):
 	testlist = text.split(" ")
 	querylist = query.split(" ")
-
+    resultlist=[]
 	size = len(testlist)
+    resultlist.append(size)
 	matchnum =0
 	for i in querylist:
 		matchnum =0
@@ -100,7 +101,9 @@ def getstats(text,query):
 			if i == j:
 				matchnum = matchnum +1
 
-		freqlist.append(matchnum)
+		resultlist.append(matchnum)
+        
+    return resultlist
 	
 
 def cleanquery(q,data3):
@@ -196,10 +199,14 @@ for i in querylist:
 
 	if count2 ==0:
 		q2_result = queryrun2(str(qs))
+        	df1 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'ter,4'])
 		if q2_result is not None:
 			for k in q2_result:
 				idq = k[0].replace("\n",'')
 				rating = k[1]
+                		stats = getstats(k[2]["text"],str(gs))
+                		submitline = (id)
+                		df1.loc[len(df1)] = (idq, stats[0], stats[1], stats[])
 				# writeout(file2,qn,idq,count,rating)
 				print(idq)
 				print(k[2]["text"])
