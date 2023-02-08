@@ -4,6 +4,7 @@ from elasticsearch import Elasticsearch, helpers
 from collections import Counter
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
+import pandas as pd
 
 # stoptxt = open('query_desc.51-100.short.txt', "r")
 # data2 = stoptxt.readline()
@@ -19,8 +20,8 @@ stoplist= [" a "," identify "," or "," even "," describe "," to "," the "," of "
 querylist = []
 data3 = []
 with open('query_desc.51-100.short.txt') as file:
-    while (line := file.readline().rstrip()):
-        querylist.append(line)
+	while (line := file.readline().rstrip()):
+		querylist.append(line)
 
 test =  querylist[0].split("   ")
 
@@ -36,53 +37,57 @@ if exists("./results_file.txt") == True:
 # 	print(" ")
 file2 = open("results_file.txt","w")
 
+okapitf(df):
+	
+
+	score = 
 
 def queryrun(q):
 	es = Elasticsearch("http://localhost:9200")
 	result = es.search(index="ap89_data13test",
-	                   body={
-	                       "query": {
-	                           "function_score": {
-	                           		# "fields" :['_id'],
-	                           		# 'scroll': 1000,
-	                            	"query": {
-	                                   "match": {
-	                                       "text": q
-	                                   }
-	                               }
-	                           }
-	                       },"size": 1000
-	                   })
+					   body={
+						   "query": {
+							   "function_score": {
+									# "fields" :['_id'],
+									# 'scroll': 1000,
+									"query": {
+									   "match": {
+										   "text": q
+									   }
+								   }
+							   }
+						   },"size": 1000
+					   })
 
 
 	d=result['hits']['hits']
 	result3 = [(item["_id"], item["_score"],item["_source"]) for item in d]
 	# file2.close()
-	print(result3)
+	# print(result3)
 	return result3
 
 def queryrun2(q):
 	es = Elasticsearch("http://localhost:9200")
 	result = es.search(index="ap89_data13test",
-	                   body={
-	                       "query": {
-	                           "function_score": {
-	                           		# "fields" :['_id'],
-	                           		# 'scroll': 1000,
-	                            	"query": {
-	                                   "match": {
-	                                       "text": q
-	                                   }
-	                               }
-	                           }
-	                       }
-	                   })
+					   body={
+						   "query": {
+							   "function_score": {
+									# "fields" :['_id'],
+									# 'scroll': 1000,
+									"query": {
+									   "match": {
+										   "text": q
+									   }
+								   }
+							   }
+						   }
+					   })
 
 
 	d=result['hits']['hits']
 	result3 = [(item["_id"], item["_score"],item["_source"]) for item in d]
 	# file2.close()
-	print(result3)
+	# print(result3)
 	return result3
 
 def writeout(file,qnum,iddoc,rank,score):
@@ -91,9 +96,9 @@ def writeout(file,qnum,iddoc,rank,score):
 def getstats(text,query):
 	testlist = text.split(" ")
 	querylist = query.split(" ")
-    resultlist=[]
+	resultlist=[]
 	size = len(testlist)
-    resultlist.append(size)
+	resultlist.append(size)
 	matchnum =0
 	for i in querylist:
 		matchnum =0
@@ -102,8 +107,8 @@ def getstats(text,query):
 				matchnum = matchnum +1
 
 		resultlist.append(matchnum)
-        
-    return resultlist
+		
+	return resultlist
 	
 
 def cleanquery(q,data3):
@@ -126,7 +131,7 @@ def cleanquery(q,data3):
 
 	#85
 	q = q.replace("against "," ")
-	q = q.replace("worldwide "," ")
+	q = q.replace(" worldwide"," ")
 	#71
 	q= q.replace("second "," ")
 	q= q.replace("country "," ")
@@ -139,12 +144,39 @@ def cleanquery(q,data3):
 	#62
 	q= q.replace("attempted "," ")
 
+	q=q.replace("supporters ","")
+	q=q.replace(" assets"," ")
+
+	q=q.replace(" agreement "," ")
+	q=q.replace(" commercial "," ")
+
+	q=q.replace("non ","")
+	q=q.replace(" high "," ")
+	q=q.replace(" use "," ")
+	q=q.replace(" dual "," ")
+	q=q.replace(" states "," ")
+	q=q.replace(" transfer "," ")
+	q=q.replace(" goods "," ")
+
+	q=q.replace(" products"," ")
+	q=q.replace("concerns ","")
+	q=q.replace(" fine"," ")
+	q=q.replace(" diameter"," ")
+	q=q.replace("studies ","")
+
+	q=q.replace("the ","")
+	q=q.replace(" use","")
+	q=q.replace(" pay "," ")
+
+
+
+
 	q=q.replace("  "," ")
 	q=q.replace("  "," ")
 	q = removedup(q)
 	q=q.replace("  "," ")
 
-	# print(q)
+	print(q)
 
 	ps = PorterStemmer()
 	newq = ''
@@ -165,8 +197,13 @@ def removedup(q):
 
 count2 =0
 count =1
+# count3 = 0
+print(querylist)
+print(len(querylist))
 for i in querylist:
+	print(count)
 	query = i.lower()
+	# print(query)
 	# query2 = query.split(".   ")
 	if ".    " in query:
 		query2 = query.split(".    ")
@@ -175,8 +212,11 @@ for i in querylist:
 	qn = query2[0]
 	qs = query2[1]
 	for j in data3:
+		# if count2 !=3 and count2 != 2:
 		word = " "+j + " "
 		qs = qs.replace(word,' ')
+
+		
 	qs = cleanquery(qs,data3)
 	# qn = qn.replace("'\n'","")
 
@@ -193,23 +233,26 @@ for i in querylist:
 				rating = k[1]
 				file2.write(qn+" Q0 "+idq +" "+str(count)+" "+str(rating)+" Exp\n")
 				# writeout(file2,qn,idq,count,rating)
-				print(idq)
-				print(k[2]["text"])
+				# print(idq)
+				# print(k[2]["text"])
 
 
 	if count2 ==0:
 		q2_result = queryrun2(str(qs))
-        	df1 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'ter,4'])
+		df1 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
 		if q2_result is not None:
 			for k in q2_result:
 				idq = k[0].replace("\n",'')
 				rating = k[1]
-                		stats = getstats(k[2]["text"],str(gs))
-                		submitline = (id)
-                		df1.loc[len(df1)] = (idq, stats[0], stats[1], stats[])
+				stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df1.loc[len(df1)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
 				# writeout(file2,qn,idq,count,rating)
-				print(idq)
-				print(k[2]["text"])
+			# print(df1)
+
+	if count2 == 1:
+		q2_result = queryrun2(str(qs))
+		df2 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
 
 	count2 = count2 +1
 	count = count +1
