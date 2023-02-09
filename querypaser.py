@@ -35,7 +35,13 @@ if exists("./results_file.txt") == True:
 
 # with open("results_file.txt","w") as file2:
 # 	print(" ")
-file2 = open("results_file.txt","w")
+file1 = open("results_file.txt","w")
+
+file2 = open("results_file2.txt","w")
+file3 = open("results_file3.txt", "w")
+file4 = open("results_file4.txt", "w")
+file5 = open("results_file5.txt", "w")
+file6 = open("results_file6.txt", "w")
 
 def okapitf(df,termlist):
 	scorelist =[]
@@ -215,6 +221,7 @@ def removedup(q):
 	return unwords
 qnlist = []
 dflist=[]
+statslist = []
 count2 =0
 count =1
 # count3 = 0
@@ -251,11 +258,11 @@ for i in querylist:
 				# writeout()
 				idq = k[0].replace("\n",'')
 				rating = k[1]
-				file2.write(qn+" Q0 "+idq +" "+str(count)+" "+str(rating)+" Exp\n")
+				file1.write(qn+" Q0 "+idq +" "+str(count)+" "+str(rating)+" Exp\n")
 				# writeout(file2,qn,idq,count,rating)
 				# print(idq)
 				# print(k[2]["text"])
-		dflist.append()
+		# dflist.append()
 
 	if count2 ==0:
 		q2_result = queryrun2(str(qs))
@@ -267,6 +274,8 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
 				df1.loc[len(df1)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df1)
+			statslist.append(stats)
 				# writeout(file2,qn,idq,count,rating)
 			# print(df1)
 
@@ -281,6 +290,8 @@ for i in querylist:
 				submitline = (id)
 				print("thee lenght of starts: " +str(len(stats)))
 				df2.loc[len(df2)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df2)
+			statslist.append(stats)
 			okscore = okapitf(df2,stats)
 			df2["score"] =okscore
 			print(df2)
@@ -296,6 +307,8 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
 				df3.loc[len(df3)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df3)
+			statslist.append(stats)
 				
 	if count2 == 3:
 		q2_result = queryrun2(str(qs))
@@ -306,7 +319,8 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
-				df4.loc[len(df4)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])       
+				df4.loc[len(df4)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4]) 
+			dflist.append(df4)      
 
 	if count2 == 4:
 		q2_result = queryrun2(str(qs))
@@ -318,6 +332,8 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
 				df5.loc[len(df5)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df5)
+			statslist.append(stats)
 	
 	if count2 == 5:
 		q2_result = queryrun2(str(qs))
@@ -329,6 +345,8 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
 				df6.loc[len(df6)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df6)
+			statslist.append(stats)
 				
 	if count2 == 6:
 		q2_result = queryrun2(str(qs))
@@ -340,6 +358,8 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
 				df7.loc[len(df7)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df7)
+			statslist.append(stats)
 				
 	if count2 == 7:
 		q2_result = queryrun2(str(qs))
@@ -350,7 +370,8 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
-				df8.loc[len(df8)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])            
+				df8.loc[len(df8)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df8)        
 				
 				
 	if count2 == 8:
@@ -363,6 +384,8 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
 				df9.loc[len(df9)] = (idq, stats[0], stats[1], stats[2],stats[3])
+			dflist.append(df9)
+			statslist.append(stats)
 				
 	if count2 == 9:
 		q2_result = queryrun2(str(qs))
@@ -374,6 +397,8 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
 				df10.loc[len(df10)] = (idq, stats[0], stats[1], stats[2],stats[3])
+			dflist.append(df10)
+			statslist.append(stats)
 				
 	if count2 == 10:
 		q2_result = queryrun2(str(qs))
@@ -384,7 +409,9 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
-				df11.loc[len(df11)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])             
+				df11.loc[len(df11)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df11)
+			statslist.append(stats)
 				
 	if count2 == 11:
 		q2_result = queryrun2(str(qs))
@@ -395,7 +422,9 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
-				df12.loc[len(df12)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])             
+				df12.loc[len(df12)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df12)
+			statslist.append(stats)
 				
 	if count2 == 12:
 		q2_result = queryrun2(str(qs))
@@ -406,7 +435,9 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
-				df13.loc[len(df13)] = (idq, stats[0], stats[1], stats[2],stats[3])             
+				df13.loc[len(df13)] = (idq, stats[0], stats[1], stats[2],stats[3])
+			dflist.append(df13)
+			statslist.append(stats)     
 				
 	if count2 == 13:
 		q2_result = queryrun2(str(qs))
@@ -417,7 +448,9 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
-				df14.loc[len(df14)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])             
+				df14.loc[len(df14)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df14)
+			statslist.append(stats)
 				
 	if count2 == 14:
 		q2_result = queryrun2(str(qs))
@@ -428,7 +461,9 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
-				df15.loc[len(df15)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])  
+				df15.loc[len(df15)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df15)
+			statslist.append(stats)
 
 
 	if count2 == 15:
@@ -441,6 +476,9 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
 				df16.loc[len(df16)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4]) 
+			dflist.append(df16)
+			statslist.append(stats)
+
 				
 	if count2 == 16:
 		q2_result = queryrun2(str(qs))
@@ -451,7 +489,9 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
-				df17.loc[len(df17)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])             
+				df17.loc[len(df17)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])  
+			dflist.append(df17)
+			statslist.append(stats)  
 
 
 	if count2 == 17:
@@ -463,7 +503,9 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
-				df18.loc[len(df18)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4]) 
+				df18.loc[len(df18)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df18)
+			statslist.append(stats)
 
 
 	if count2 == 18:
@@ -475,7 +517,9 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
-				df19.loc[len(df19)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4]) 
+				df19.loc[len(df19)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df19)
+			statslist.append(stats)
 
 
 	if count2 == 19:
@@ -488,6 +532,8 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
 				df20.loc[len(df20)] = (idq, stats[0], stats[1], stats[2],stats[3]) 
+			dflist.append(df20)
+			statslist.append(stats)
 
 	if count2 == 20:
 		q2_result = queryrun2(str(qs))
@@ -498,7 +544,9 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
-				df21.loc[len(df21)] = (idq, stats[0], stats[1], stats[2],stats[3]) 
+				df21.loc[len(df21)] = (idq, stats[0], stats[1], stats[2],stats[3])
+			dflist.append(df21)
+			statslist.append(stats)
 
 	if count2 == 21:
 		q2_result = queryrun2(str(qs))
@@ -510,6 +558,8 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
 				df22.loc[len(df22)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+			dflist.append(df22)
+			statslist.append(stats)
 
 	if count2 == 22:
 		q2_result = queryrun2(str(qs))
@@ -521,7 +571,8 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
 				df23.loc[len(df23)] = (idq, stats[0], stats[1], stats[2],stats[3]) 
-
+			dflist.append(df23)
+			statslist.append(stats)
 
 	if count2 == 23:
 		q2_result = queryrun2(str(qs))
@@ -533,6 +584,8 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
 				df24.loc[len(df24)] = (idq, stats[0], stats[1], stats[2],stats[3]) 
+			dflist.append(df24)
+			statslist.append(stats)
 
 	if count2 == 24:
 		q2_result = queryrun2(str(qs))
@@ -544,14 +597,26 @@ for i in querylist:
 				stats = getstats(k[2]["text"],str(qs))
 				submitline = (id)
 				df25.loc[len(df25)] = (idq, stats[0], stats[1], stats[2],stats[3]) 
+			dflist.append(df25)
+			statslist.append(stats)
 
 
 	count2 = count2 +1
 	count = count +1
 
 
+for i in range(0,len(dflist)):
+
 	if(query2model == True):
-		
+		if exists("./results_file2.txt") == True:
+			os.remove("./results_file2.txt")
+		file = open("results_file2.txt","w")
+		okayscore = okapitf(dflist[i],statslist[1])
+
+	dflist[i]["score"] = okayscore
+	dflist[i].sort_values(by="score", ascending = False, inplace=True)
+	for j in range(len(dflist[i])):
+		val= dflist[i].loc[j,"score"]
 	# file2.write("hello\n")
 
 
@@ -562,4 +627,4 @@ es = Elasticsearch("http://localhost:9200")
 
 print("*****************************************")
 
-file2.close()
+file1.close()
