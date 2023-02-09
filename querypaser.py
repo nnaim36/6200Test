@@ -223,20 +223,6 @@ for i in querylist:
 	# print(qs)
 	# print(qn)
 
-	if count2 ==0 :
-		result5 = queryrun(str(qs))
-		if result5 is not None:
-			for k in result5:
-				# print("************")
-				# writeout()
-				idq = k[0].replace("\n",'')
-				rating = k[1]
-				file2.write(qn+" Q0 "+idq +" "+str(count)+" "+str(rating)+" Exp\n")
-				# writeout(file2,qn,idq,count,rating)
-				# print(idq)
-				# print(k[2]["text"])
-
-
 	if count2 ==0:
 		q2_result = queryrun2(str(qs))
 		df1 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
@@ -253,6 +239,227 @@ for i in querylist:
 	if count2 == 1:
 		q2_result = queryrun2(str(qs))
 		df2 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        	if q2_result is not None:
+            		for k in q2_result:
+                		idq = k[0].replace("\n",'')
+                		stats = getstats(k[2]["text],str(qs)
+                		stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df2.loc[len(df2)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+                
+    if count2 == 2:
+		q2_result = queryrun2(str(qs))
+		df3 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df3.loc[len(df3)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+                
+    if count2 == 3:
+		q2_result = queryrun2(str(qs))
+		df4 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df4.loc[len(df4)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])       
+
+    if count2 == 4:
+		q2_result = queryrun2(str(qs))
+		df5 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df5.loc[len(df5)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+    
+    if count2 == 5:
+		q2_result = queryrun2(str(qs))
+		df6 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df6.loc[len(df6)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+                
+    if count2 == 6:
+		q2_result = queryrun2(str(qs))
+		df7 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df7.loc[len(df7)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])
+                
+    if count2 == 7:
+		q2_result = queryrun2(str(qs))
+		df8 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df8.loc[len(df8)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])            
+                
+                
+    if count2 == 8:
+		q2_result = queryrun2(str(qs))
+		df9 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df9.loc[len(df9)] = (idq, stats[0], stats[1], stats[2],stats[3])
+                
+    if count2 == 9:
+		q2_result = queryrun2(str(qs))
+		df10 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df10.loc[len(df10)] = (idq, stats[0], stats[1], stats[2],stats[3])
+                
+    if count2 == 10:
+		q2_result = queryrun2(str(qs))
+		df11 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df11.loc[len(df11)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])             
+                
+    if count2 == 11:
+		q2_result = queryrun2(str(qs))
+		df12 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df12.loc[len(df12)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])             
+                
+    if count2 == 12:
+		q2_result = queryrun2(str(qs))
+		df13 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df13.loc[len(df13)] = (idq, stats[0], stats[1], stats[2],stats[3])             
+                
+    if count2 == 13:
+		q2_result = queryrun2(str(qs))
+		df14 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df14.loc[len(df14)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])             
+                
+    if count2 == 14:
+		q2_result = queryrun2(str(qs))
+		df15 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df15.loc[len(df15)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])  
+
+
+    if count2 == 15:
+		q2_result = queryrun2(str(qs))
+		df16 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df16.loc[len(df16)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4]) 
+                
+    if count2 == 16:
+		q2_result = queryrun2(str(qs))
+		df17 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df17.loc[len(df17)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4])             
+
+
+    if count2 == 17:
+		q2_result = queryrun2(str(qs))
+		df18 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df18.loc[len(df18)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4]) 
+
+
+    if count2 == 18:
+		q2_result = queryrun2(str(qs))
+		df16 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3', 'term4'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df8.loc[len(df16)] = (idq, stats[0], stats[1], stats[2],stats[3],stats[4]) 
+
+
+    if count2 == 19:
+		q2_result = queryrun2(str(qs))
+		df20 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df20.loc[len(df20)] = (idq, stats[0], stats[1], stats[2],stats[3]) 
+
+    if count2 == 20:
+		q2_result = queryrun2(str(qs))
+		df21 = pd.DataFrame(columns = ['ID','totnum','term1','term2','term3'])
+        if q2_result is not None:
+            for k in q2_result:
+                idq = k[0].replace("\n",'')
+                stats = getstats(k[2]["text],str(qs)
+                stats = getstats(k[2]["text"],str(qs))
+				submitline = (id)
+				df21.loc[len(df21)] = (idq, stats[0], stats[1], stats[2],stats[3]) 
 
 	count2 = count2 +1
 	count = count +1
