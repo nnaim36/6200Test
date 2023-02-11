@@ -5,6 +5,7 @@ from collections import Counter
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
 import pandas as pd
+import math
 
 # stoptxt = open('query_desc.51-100.short.txt', "r")
 # data2 = stoptxt.readline()
@@ -64,6 +65,33 @@ def okapitf(df,termlist):
 		# if len(termlist) ==3:
 	print(scorelist)
 	return scorelist
+
+def tf_idf(df, termlist):
+	scorelist =[]
+	scorerow = []
+	averagecorp = df.loc[:,"totnum"].mean()
+	for i in range(len(df)):
+		# tfreq = df.iloc[i,"term1"]
+		doclength = df.loc[i,"totnum"]
+		tscore =0
+		for j in range(1,len(termlist)-1):
+			tname = 'term'+str(j)
+			tfreq= df.loc[i,tname]
+			bottom1 = tfreq+.5
+			bottom2 = doclength/averagecorp
+			bottom2 = bottom2*1.5
+			bottomt = bottom1 +bottom2
+			score = tfreq/bottomt
+			l = 84648 / len(df)
+			score = score*math.log10(l)
+			
+			tscore = tscore+score
+		scorelist.append(tscore)
+		# if len(termlist) ==3:
+	print(scorelist)
+	return scorelist
+
+def bm25(df, termlist):
 
 
 
